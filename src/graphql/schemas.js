@@ -33,6 +33,7 @@ const typeDefs = gql`
 
   type Mutation{
     addUser(userData: UserInput) : Token 
+    doLogin(email:String,password:String):Token
   }
   
 `;
