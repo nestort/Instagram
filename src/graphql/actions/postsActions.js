@@ -1,5 +1,3 @@
-postactions
-
 import { PostModel } from '../../dataBase/models';
 
 

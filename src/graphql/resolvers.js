@@ -26,13 +26,11 @@ const resolvers = {
               const { CrimePostInfo } = data;
               const { user } = context;
               const newPost = await addCrimePostAction(CrimePostInfo);
-              const filter = { _id: user._id };
-              const update = { $push: { 'CrimePosts': newPost._id } };
-              await updateUserAction(filter, update);
+              // const filter = { _id: user._id };
+              // const update = { $push: { 'CrimePosts': newPost._id } };
+              // await updateUserAction(filter, update);
               return newPost;
-          } catch (error) {
-              
-          }
+          } catch (error) {}
       },
         doLogin:async(parent,data,context,info)=>{
           try{

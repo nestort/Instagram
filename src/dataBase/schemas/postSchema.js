@@ -19,8 +19,7 @@ const postSchema = new schema(
       type: String,
     },
     crimeType: {
-      type: Number,
-      default: 0
+      type: String,
     },
     comments: {
       type: String,

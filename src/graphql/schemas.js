@@ -25,15 +25,14 @@ const typeDefs = gql`
     de:String
   }
   
-
- 
   type Query{
-    hello(data:String):String
-  }
+    getCrimePostInfo : CrimePost
+  } 
 
   type Mutation{
     addUser(userData: UserInput) : Token 
     doLogin(email:String,password:String):Token
+    addCrimePost(CrimePostInfo : CrimePostInput):CrimePost
   }
   
   type CrimePost {
@@ -42,23 +41,17 @@ const typeDefs = gql`
     postImg: String
     location: String
     crimeType: Int
-    comments: [comment]
+    comments: String
   }
   input CrimePostInput{
     postTxt:String
     postImg:Upload
     location:String
     crimeType:Enum
-    [H,M]
+    [Robo,Asalto,Agresión]
   }
 
-  type Query{
-    getCrimePostInfo : CrimePost
-  }
 
-  type Mutation{
-    addCrimePost(CrimePostInfo : CrimePostInput)
-  }
 `;
 
 export default typeDefs;
