@@ -2,6 +2,8 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
 
+  directive @AuthDirective on QUERY | FIELD_DEFINITION | FIELD
+
   type Token{
     token:String
   }
@@ -30,7 +32,8 @@ const typeDefs = gql`
   }
 
   type Mutation{
-    addUser(userData: UserInput) : Token
+    addUser(userData: UserInput) : Token 
+    doLogin(email:String,password:String):Token
   }
   
   type CrimePost {

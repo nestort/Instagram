@@ -1,7 +1,10 @@
 
-import {addUserAction} from './actions/userActions';
 import{addCrimePostAction} from './actions/postsActions'
 
+import {
+  addUserAction,
+  doLoginAction,
+} from './actions/userActions';
 const resolvers = {
     Query: {
         hello(root) {
@@ -30,7 +33,15 @@ const resolvers = {
           } catch (error) {
               
           }
-      }
+      },
+        doLogin:async(parent,data,context,info)=>{
+          try{
+            const {email,password}=data;
+            return await doLoginAction(email,password);
+          }catch(error){
+            console.log("Error,doLogin",error)
+          }
+        }
     }
   };
 
