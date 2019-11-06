@@ -4,10 +4,7 @@ const schema = mongoose.Schema;
 
 const postSchema = new schema(
   {
-    user_ID: {
-      type: String,
-      required: true,
-    },
+    
     postTxt: {
       type: String,
       required: true,

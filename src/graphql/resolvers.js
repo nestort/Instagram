@@ -21,7 +21,7 @@ const resolvers = {
                 console.log("Error addUser",error)
             }
         },
-        AddCrimePost: async (parent,data,context,info) => {
+        addCrimePost: async (parent,data,context,info) => {
           try {
               const { CrimePostInfo } = data;
               const { user } = context;
@@ -30,7 +30,9 @@ const resolvers = {
               // const update = { $push: { 'CrimePosts': newPost._id } };
               // await updateUserAction(filter, update);
               return newPost;
-          } catch (error) {}
+          } catch (error) {
+            console.log("Error addUser",error)
+          }
       },
         doLogin:async(parent,data,context,info)=>{
           try{

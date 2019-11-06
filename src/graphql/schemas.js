@@ -12,7 +12,7 @@ const typeDefs = gql`
     nickname: String
     email: String
     password:String
-    posts:[Post]
+    posts:[CrimePost]
   }
    
   input UserInput {
@@ -21,22 +21,11 @@ const typeDefs = gql`
     password:String
   }
   
-  type Post{
-    de:String
-  }
+ 
   
-  type Query{
-    getCrimePostInfo : CrimePost
-  } 
-
-  type Mutation{
-    addUser(userData: UserInput) : Token 
-    doLogin(email:String,password:String):Token
-    addCrimePost(CrimePostInfo : CrimePostInput):CrimePost
-  }
   
-  type CrimePost {
-    _id: ID
+  
+  type CrimePost {    
     postTxt: String
     postImg: String
     location: String
@@ -45,12 +34,19 @@ const typeDefs = gql`
   }
   input CrimePostInput{
     postTxt:String
-    postImg:Upload
+    postImg:String
     location:String
-    crimeType:Enum
-    [Robo,Asalto,Agresión]
+    crimeType:String
   }
+  type Query{
+    hello(data:String):String
+  } 
 
+  type Mutation{
+    addUser(userData: UserInput) : Token 
+    doLogin(email:String,password:String):Token
+    addCrimePost(CrimePostInfo: CrimePostInput):CrimePost
+  }
 
 `;
 
