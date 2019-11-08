@@ -5,6 +5,7 @@ import {
   addUserAction,
   doLoginAction,
 } from './actions/userActions';
+
 const resolvers = {
     Query: {
         hello(root) {
@@ -40,6 +41,31 @@ const resolvers = {
             return await doLoginAction(email,password);
           }catch(error){
             console.log("Error,doLogin",error)
+          }
+        },
+        addComment: async (parent, data, context, info) => {
+          try {
+            const { user } = context;
+            const { commentData } = data;
+            return await addCommentAction(commentData, user._id);
+          } catch (error) {
+            console.log("TCL: error", error);
+          }
+        },
+        updateComment: async (parent, data, context, info) => {
+          try {
+            const { comment, commentID } = data;
+            return await updateContentCommentAction(comment, commentID);
+          } catch (error) {
+            console.log("TCL: error", error);
+          }
+        },
+        delteComment: async (parent, data, context, info) => {
+          try {
+            const { commentID } = data;
+            return await deleteCommentAction(commentID);
+          } catch (error) {
+            console.log("TCL: error", error);
           }
         }
     }

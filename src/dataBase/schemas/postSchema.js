@@ -16,8 +16,9 @@ const postSchema = new schema(
       type: String,
     },
     crimeType: {
-      type: String,
-    },
+      type:String,
+      enum :['Asalto','Robo','Otro']  
+      },
     comments: {
       type: String,
     }
