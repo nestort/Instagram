@@ -17,6 +17,14 @@ const addUserAction = async (userData) => {
     }
 }
 
+const getAllUsersAction= async()=>{
+    try {
+        return await UserModel.find();
+    } catch (error) {
+        console.log("Error userAction:getAllUserAction",error)
+    }
+}
+
 const findUserAction = async (filter) => {
     try {
         return await UserModel.findOne(filter);
@@ -64,5 +72,6 @@ Date.prototype.addDays = function (days) {
 export {
     addUserAction,
     findUserAction,
-    doLoginAction
+    doLoginAction,
+    getAllUsersAction
 }

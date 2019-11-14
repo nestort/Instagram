@@ -9,6 +9,15 @@ const addCrimePostAction = async (postData) => {
   }
 };
 
+const getAllPostsAction= async() => {
+  try{
+    return await PostModel.find();
+  }catch(error){
+    console.log("Error: getAllPostAction",error);
+  }
+};
+
 export {
-  addCrimePostAction
+  addCrimePostAction,
+  getAllPostsAction
 }

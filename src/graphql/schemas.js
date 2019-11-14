@@ -33,8 +33,8 @@ const typeDefs = gql`
     isActive: Boolean
     postID: ID
     authorID: ID
-    createdAt: Date
-    updatedAt: Date
+    createdAt: String
+    updatedAt: String
   }
   input CrimePostInput{
     postTxt:String
@@ -47,17 +47,21 @@ const typeDefs = gql`
     postID: ID
   }
 
-  type Query{
-    hello(data:String):String
+  type Query{    
+    getAllUsers:[User]
+    getAllPosts:[CrimePost]
+    
   } 
 
   type Mutation{
     addUser(userData: UserInput) : Token 
     doLogin(email:String,password:String):Token
+    
     addCrimePost(CrimePostInfo: CrimePostInput):CrimePost
+    
     addComment(commentData: CommentInput) : Comment
     updateComment(comment: String, commentID: ID) : Comment 
-    delteComment(commentID: ID) : Comment 
+    deleteComment(commentID: ID) : Comment 
   }
 
 `;
