@@ -21,7 +21,8 @@ const typeDefs = gql`
   input UserInput {
     nickname: String
     email: String
-    password:String
+    password:String,
+    avatar:Upload
   }
   type CrimePost {   
     _id: ID

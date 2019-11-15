@@ -13,6 +13,8 @@ import {
   getUserPostsAction
 } from './actions/userActions';
 
+import { storeUpload } from '../graphql/actions/utils/uploader';
+
 const resolvers = {
   Query: {
     getAllUsers: async (parent, data, context, info) => {
@@ -45,14 +47,60 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, data, context, info) => {
+      let urlImage;
       try {
-        const { userData } = data;
-        return await addUserAction(userData);
+        // sube el archivo
+        let inf=await data.userData;
+        
+        if( inf.avatar) {
+          
+          const { createReadStream } = await inf.avatar;
+          const stream = createReadStream();
+          const { url } = await storeUpload(stream, 'image');
+          urlImage = url;
+        }
+
+        // registra usario
+        const userIfo = {
+          ...inf,
+          avatar: urlImage,
+        }
+
+        return await addUserAction(userIfo);
+
+
       }
       catch (error) {
         console.log("Error addUser", error)
       }
     },
+
+
+/**
+ *  addUser: async (parent, { data }, context, info) => {
+      let urlImage;
+      try {
+        // sube el archivo
+        if(await data.profileImage) {
+          const { createReadStream } = await data.profileImage;
+          const stream = createReadStream();
+          const { url } = await storeUpload(stream, 'video');
+          urlImage = url;
+        }
+
+        // registra usario
+        const userIfo = {
+          ...data,
+          profileImage: urlImage,
+        }
+
+        return await addUserAction(userIfo);
+      } catch (error) {
+        console.log("TCL: error", error)
+      }
+    },
+ */
+
     addCrimePost: async (parent, data, context, info) => {
       try {
         const { CrimePostInfo } = data;
