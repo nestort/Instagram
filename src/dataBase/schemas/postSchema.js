@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const schema = mongoose.Schema;
 
 const postSchema = new schema(
-  {
-    
+  {    
     postTxt: {
       type: String,
       required: true,
@@ -19,8 +18,13 @@ const postSchema = new schema(
       type:String,
       enum :['Asalto','Robo','Otro']  
       },
-    comments: {
-      type: String,
+    comments: [{
+      type: schema.Types.ObjectId,
+      ref: 'comment',
+    }],
+    isActive: {
+      type: Boolean,
+      default: true,
     }
   },
   { timestamps: true }
