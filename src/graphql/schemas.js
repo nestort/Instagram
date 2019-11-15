@@ -27,7 +27,7 @@ const typeDefs = gql`
   type CrimePost {   
     _id: ID
     postTxt: String
-    postImg: String
+    postImg: Upload
     location: String
     crimeType: String
     comments: [Comment]

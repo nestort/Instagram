@@ -2,7 +2,6 @@
 import {
   addCrimePostAction,
   getAllPostsAction,  
-  
 } from './actions/postsActions'
 
 import {
@@ -50,11 +49,11 @@ const resolvers = {
       let urlImage;
       try {
         // sube el archivo
-        let inf=await data.userData;
         
-        if( inf.avatar) {
+        console.log(data.userData);
+        if(await data.userData.avatar) {
           
-          const { createReadStream } = await inf.avatar;
+          const { createReadStream } = await data.userData.avatar;
           const stream = createReadStream();
           const { url } = await storeUpload(stream, 'image');
           urlImage = url;
@@ -62,7 +61,7 @@ const resolvers = {
 
         // registra usario
         const userIfo = {
-          ...inf,
+          ...data.userData,
           avatar: urlImage,
         }
 
@@ -76,35 +75,18 @@ const resolvers = {
     },
 
 
-/**
- *  addUser: async (parent, { data }, context, info) => {
-      let urlImage;
-      try {
-        // sube el archivo
-        if(await data.profileImage) {
-          const { createReadStream } = await data.profileImage;
-          const stream = createReadStream();
-          const { url } = await storeUpload(stream, 'video');
-          urlImage = url;
-        }
-
-        // registra usario
-        const userIfo = {
-          ...data,
-          profileImage: urlImage,
-        }
-
-        return await addUserAction(userIfo);
-      } catch (error) {
-        console.log("TCL: error", error)
-      }
-    },
- */
 
     addCrimePost: async (parent, data, context, info) => {
       try {
+        let urlImage;
+        //let inf=await data.userData;
+        
+
         const { CrimePostInfo } = data;
         const { user } = context;
+
+
+        
         const newPost = await addCrimePostAction(CrimePostInfo);
          const filter = { _id: user._id };
          const update = { $push: { 'posts': newPost._id } };
