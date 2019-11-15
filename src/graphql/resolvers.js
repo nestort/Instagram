@@ -1,13 +1,16 @@
 
 import {
   addCrimePostAction,
-  getAllPostsAction
+  getAllPostsAction,  
+  
 } from './actions/postsActions'
 
 import {
   addUserAction,
   doLoginAction,
-  getAllUsersAction
+  getAllUsersAction,
+  updateUserAction,
+  getUserPostsAction
 } from './actions/userActions';
 
 const resolvers = {
@@ -19,11 +22,23 @@ const resolvers = {
         console.log("Error resolver: getAllUser")
       }
     },
+    getCurrentUser(parent,data,context,info){
+      const {user}=context;      
+      return user;
+    },
     getAllPosts: async (parent, data, context, info) => {
       try {
         return await getAllPostsAction();
       } catch (error) {
         console.log("Error resolver: getAllPosts", error);
+      }
+    },
+    getUserPosts:async (parent,data,context,info)=>{
+      try {
+        const {userID} = data;
+        return await getUserPostsAction(userID);
+      } catch (error) {
+        console.log("Error: Resolver->getPostUser",error)
       }
     }
 
@@ -43,9 +58,9 @@ const resolvers = {
         const { CrimePostInfo } = data;
         const { user } = context;
         const newPost = await addCrimePostAction(CrimePostInfo);
-        // const filter = { _id: user._id };
-        // const update = { $push: { 'CrimePosts': newPost._id } };
-        // await updateUserAction(filter, update);
+         const filter = { _id: user._id };
+         const update = { $push: { 'posts': newPost._id } };
+         await updateUserAction(filter, update);
         return newPost;
       } catch (error) {
         console.log("Error addUser", error)

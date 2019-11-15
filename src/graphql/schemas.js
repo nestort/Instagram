@@ -9,10 +9,13 @@ const typeDefs = gql`
   }
 
   type User {
+    _id: ID
     nickname: String
-    email: String
-    password:String
+    email: String    
     posts:[CrimePost]
+    avatar:String
+    createdAt: String
+    updatedAt: String
   }
    
   input UserInput {
@@ -20,12 +23,15 @@ const typeDefs = gql`
     email: String
     password:String
   }
-  type CrimePost {    
+  type CrimePost {   
+    _id: ID
     postTxt: String
     postImg: String
     location: String
     crimeType: String
     comments: [Comment]
+    createdAt: String
+    updatedAt: String
   }
   type Comment {
     _id: ID
@@ -50,7 +56,8 @@ const typeDefs = gql`
   type Query{    
     getAllUsers:[User]
     getAllPosts:[CrimePost]
-    
+    getUserPosts(userID:String):[CrimePost]
+    getCurrentUser:User 
   } 
 
   type Mutation{

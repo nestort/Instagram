@@ -17,11 +17,11 @@ const addUserAction = async (userData) => {
     }
 }
 
-const getAllUsersAction= async()=>{
+const getAllUsersAction = async () => {
     try {
         return await UserModel.find();
     } catch (error) {
-        console.log("Error userAction:getAllUserAction",error)
+        console.log("Error userAction:getAllUserAction", error)
     }
 }
 
@@ -35,22 +35,43 @@ const findUserAction = async (filter) => {
 
 const doLoginAction = async (email, password) => {
     try {
-        const filter ={email:email};
-        const currentUser=await findUserAction(filter);
-        const validLogin=await bcrypt.compare(password,currentUser.password);
-        if(validLogin){
-            const token =createToken(currentUser);
-            return {token}
-        }else{
+        const filter = { email: email };
+        const currentUser = await findUserAction(filter);
+        const validLogin = await bcrypt.compare(password, currentUser.password);
+        if (validLogin) {
+            const token = createToken(currentUser);
+            return { token }
+        } else {
             return null;
         }
-        
+
 
     } catch (error) {
-        console.log("Error,doLoginAction",error);
+        console.log("Error,doLoginAction", error);
     }
 }
 
+
+const updateUserAction = async (filter, update) => {
+    try {
+        return await UserModel.findOneAndUpdate(filter, update, { new: true });
+    } catch (error) {
+        console.log("Error: userActions->updateUserAction", error);
+    }
+};
+
+
+const getUserPostsAction = async (userID) => {
+    try {
+        const posts= await UserModel.findById(userID).populate('posts').then(results => results.posts);
+        //const posts= await UserModel.findById(userID).populate('posts');
+        
+return posts;
+        
+    } catch (error) {
+        console.log("Error: usersActions->getUserPostsAction", error);
+    }
+};
 
 const createToken = (userData) => {
     const exp = new Date().addDays(5).getTime();
@@ -69,9 +90,12 @@ Date.prototype.addDays = function (days) {
     return date;
 }
 
+
 export {
     addUserAction,
     findUserAction,
     doLoginAction,
-    getAllUsersAction
+    getAllUsersAction,
+    updateUserAction,
+    getUserPostsAction
 }
