@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/nestort/Instagram#readme",
   "dependencies": {
-    "apollo-server": "^2.9.7",
+    "apollo-server": "^2.25.4",
     "apollo-server-express": "^2.9.7",
     "bcrypt": "^3.0.6",
     "cloudinary": "^1.16.0",
